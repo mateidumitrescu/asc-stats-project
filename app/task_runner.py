@@ -39,11 +39,10 @@ class ThreadPool:
 
     def update_job_status(self, job_id, status, result=None):
         """Method to update the status of a job"""
-        with self.lock:
-            if job_id in self.jobs:
-                self.jobs[job_id]['status'] = status
-                if result is not None:
-                    self.jobs[job_id]['result'] = result
+        if job_id in self.jobs:
+            self.jobs[job_id]['status'] = status
+            if result is not None:
+                self.jobs[job_id]['result'] = result
 
     def graceful_shutdown(self):
         """Method to shutdown the thread pool"""
